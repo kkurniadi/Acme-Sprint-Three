@@ -47,7 +47,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['isAdmin'] == 'n'){
          $db = $database->open();
          try{	
             if (!isset($_GET("search"))){
-                $sql = 'SELECT * FROM Painting_Data';
+                $sql = 'SELECT * FROM MembershipDatabase';
                 foreach ($db->query($sql) as $row) {
                     ?>
                     <tr>
