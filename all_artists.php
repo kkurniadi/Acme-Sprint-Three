@@ -48,17 +48,30 @@
             $database = new Connection();
             $db = $database->open();
             try {
-                $sql = "SELECT Id, Artist, Lifespan, Painting FROM Artist_Data WHERE Artist LIKE '%$search%'";
-                $row = $db->query($sql);
-                foreach ($db->query($sql) as $row) {
-            ?>
-                    <tr>
-                        <td><?php echo $row['Id']; ?></td>
-                        <td><?php echo $row['Artist']; ?></td>
-                        <td><?php echo $row['Lifespan']; ?></td>
-                        <td><?php echo '<img class="thumb" src="data:image/png;base64,' . base64_encode($row['Painting']) . '"/>'; ?></td>
-                    </tr>
-            <?php
+                if (!isset($_GET['search'])){
+                    $sql = "SELECT Artist, Lifespan, Thumbnail FROM Artist_Data";
+                    $row = $db->query($sql);
+                    foreach ($db->query($sql) as $row) {
+                    ?>
+                        <tr>
+                            <td><?php echo $row['Artist']; ?></td>
+                            <td><?php echo $row['Lifespan']; ?></td>
+                            <td><?php echo '<img class="thumb" src="data:image/png;base64,' . base64_encode($row['Thumbnail']) . '"/>'; ?></td>
+                        </tr>
+                    <?php
+                    }
+                } else {
+                    $sql = "SELECT Artist, Lifespan, Portrait FROM Artist_Data WHERE Artist LIKE '%$search%'";
+                    $row = $db->query($sql);
+                    foreach ($db->query($sql) as $row) {
+                    ?>
+                        <tr>
+                            <td><?php echo $row['Artist']; ?></td>
+                            <td><?php echo $row['Lifespan']; ?></td>
+                            <td><?php echo '<img src="data:thumbnail/png;base64,' . base64_encode($row['Portrait']) . '"/>'; ?></td>
+                        </tr>
+                    <?php
+                    }
                 }
             } catch (PDOException $e) {
                 echo "There is some problem in connection: " . $e->getMessage();

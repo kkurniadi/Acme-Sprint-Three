@@ -46,7 +46,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['isAdmin'] == 'n'){
          $database = new Connection();
          $db = $database->open();
          try{	
-            if (!isset($_GET("search"))){
+            if (!isset($_GET["search"])){
                 $sql = 'SELECT * FROM MembershipDatabase';
                 foreach ($db->query($sql) as $row) {
                     ?>
@@ -61,8 +61,9 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['isAdmin'] == 'n'){
                     </tr>
                     <?php 
                 }
-             
-             }
+            } else {
+
+            }
          }
          catch(PDOException $e){
              echo "There is some problem in connection: " . $e->getMessage();
