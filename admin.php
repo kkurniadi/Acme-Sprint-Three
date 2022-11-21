@@ -62,12 +62,25 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['isAdmin'] == 'n'){
                     <?php 
                 }
             } else {
-
+                $sql = "SELECT * FROM MembershipDatabase WHERE Email LIKE '%$search%'";
+                foreach ($db->query($sql) as $row) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['Id']; ?></td>
+                        <td><?php echo $row['FullName']; ?></td>
+                        <td><?php echo $row['Email']; ?></td>
+                        <td><?php echo strtoupper($row['Newsletter']); ?></td>
+                        <td><?php echo strtoupper($row['Newsflash']); ?></td>
+                        <td><?php echo strtoupper($row['DeleteAccount']); ?></td>
+                        <td><?php echo strtoupper($row['IsAdmin']); ?></td>
+                    </tr>
+                    <?php 
+                }
             }
-         }
+        }
          catch(PDOException $e){
              echo "There is some problem in connection: " . $e->getMessage();
-         }
+        }
          //close connection
          $database->close();
      ?>
