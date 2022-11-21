@@ -22,7 +22,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['isAdmin'] == 'n'){
   <!--Start of table.-->
   <div class="container-fluid" id="containerStyle">
       <!--Testing Search bar Start, Added action attribte for CrudTest....1) Original File name="InsertValuesTest.php, -->
-  <form class="d-flex mt-3" role="search" action="searchUsers.php" method="GET">
+  <form class="d-flex mt-3" role="search" action="admin.php" method="GET">
         <input class="form-control me-2" type="text" name="search" name="submit" placeholder="Search" aria-label="Search">
         <button class="btn btn-success" type="submit">Search</button>
     </form>
