@@ -23,7 +23,7 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['isAdmin'] == 'n'){
   <div class="container-fluid" id="containerStyle">
       <!--Testing Search bar Start, Added action attribte for CrudTest....1) Original File name="InsertValuesTest.php, -->
   <form class="d-flex mt-3" role="search" action="admin.php" method="GET">
-        <input class="form-control me-2" type="text" name="search" name="submit" placeholder="Search" aria-label="Search">
+        <input class="form-control me-2" type="text" name="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-success" type="submit">Search</button>
     </form>
 <!--Search Bar Finish -->
@@ -46,19 +46,22 @@ if(!isset($_SESSION['loggedin']) || $_SESSION['isAdmin'] == 'n'){
          $database = new Connection();
          $db = $database->open();
          try{	
-             $sql = 'SELECT Id, FullName, Email, Newsletter, Newsflash, DeleteAccount, IsAdmin FROM Painting_Data';
-             foreach ($db->query($sql) as $row) {
-                 ?>
-                 <tr>
-					 <td><?php echo $row['Id']; ?></td>
-                     <td><?php echo $row['FullName']; ?></td>
-                     <td><?php echo $row['Email']; ?></td>
-                     <td><?php echo strtoupper($row['Newsletter']); ?></td>
-                     <td><?php echo strtoupper($row['Newsflash']); ?></td>
-                     <td><?php echo strtoupper($row['DeleteAccount']); ?></td>
-                     <td><?php echo strtoupper($row['IsAdmin']); ?></td>
-                 </tr>
-                 <?php 
+            if (!isset($_GET("search"))){
+                $sql = 'SELECT * FROM Painting_Data';
+                foreach ($db->query($sql) as $row) {
+                    ?>
+                    <tr>
+                        <td><?php echo $row['Id']; ?></td>
+                        <td><?php echo $row['FullName']; ?></td>
+                        <td><?php echo $row['Email']; ?></td>
+                        <td><?php echo strtoupper($row['Newsletter']); ?></td>
+                        <td><?php echo strtoupper($row['Newsflash']); ?></td>
+                        <td><?php echo strtoupper($row['DeleteAccount']); ?></td>
+                        <td><?php echo strtoupper($row['IsAdmin']); ?></td>
+                    </tr>
+                    <?php 
+                }
+             
              }
          }
          catch(PDOException $e){
